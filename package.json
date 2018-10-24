@@ -1,5 +1,5 @@
 {
-  "name": "winston-per-module",
+  "name": "@jyve-app/winston-per-module",
   "version": "0.0.1",
   "description": "Winston logging per module",
   "main": "dist/index.js",
