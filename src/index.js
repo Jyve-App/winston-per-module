@@ -24,13 +24,6 @@ module.exports = (module, level) => {
   let next = (i + 1) % _colors.length
   i = next
 
-  const transports = [
-    new winston.transports.Console({
-      level,
-      timestamp: () => (new Date()).toISOString()
-    })
-  ]
-
   return (label, loggerOptions) => {
     label = label ? `${module}:${colors[_colors[next]](label)}` : module
     loggerOptions = loggerOptions || {}
@@ -41,7 +34,12 @@ module.exports = (module, level) => {
 
     let defaultOptions = {
       format: buildFormats(label),
-      transports
+      transports: [
+        new winston.transports.Console({
+          level,
+          timestamp: () => (new Date()).toISOString()
+        })
+      ]
     }
 
     let options = {
