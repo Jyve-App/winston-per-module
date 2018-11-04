@@ -1,7 +1,7 @@
 import winston from 'winston'
 import colors from 'colors/safe'
 
-const _colors = ['red', 'yellow', 'green', 'blue', 'magenta', 'white']
+const _colors = ['red', 'yellow', 'green', 'blue', 'magenta', 'cyan']
 
 const { format } = winston
 
@@ -21,11 +21,12 @@ module.exports = (module, level) => {
   level = level || 'debug'
 
   module = colors[_colors[i]](module)
-  let next = (i + 1) % _colors.length
-  i = next
+  i = (i + 1) % _colors.length
 
+  let x = i
   return (label, loggerOptions) => {
-    label = label ? `${module}:${colors[_colors[next]](label)}` : module
+    label = label ? `${module}:${colors[_colors[x]](label)}` : module
+    x = (x + 1) % _colors.length
     loggerOptions = loggerOptions || {}
 
     if (winston.loggers.has(label)) {
